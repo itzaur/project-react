@@ -9,7 +9,7 @@ const ListingCard = ({ listing }) => {
         src={getImageUrl(listing.images[0])}
         alt={listing.name}
       />
-      <CardContent>
+      <CardContent className='p-4'>
         <h2 className='mb-0 text-xl font-semibold'>{listing.name}</h2>
       </CardContent>
     </Card>

@@ -332,7 +332,7 @@ export const Step4 = () => {
         pass to <code>ListingFilters</code>, and then we'll need a{' '}
         <code>handleSubmit</code> function that the <code>ListingFilters</code>{' '}
         will call when the <code>Button</code> is pressed. The{' '}
-        <code>handleSubmit</code> function will then call the the{' '}
+        <code>handleSubmit</code> function will then call the{' '}
         <code>onChange</code> callback.
       </p>
       <p>
