@@ -3,20 +3,36 @@ import { useEffect, useState } from 'react';
 import api from '@/api';
 import ListingFilters from '@/components/ListingFilters.jsx';
 import ListingList from '@/components/ListingList.jsx';
-import { Separator } from '@/components/ui';
+import { Separator, Spinner } from '@/components/ui';
 
 const HomePage = () => {
   const [listings, setListings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await api.get('/api/listings');
+      setIsLoading(true);
 
+      const response = await api.get('/api/listings');
       setListings(response.data);
+
+      setIsLoading(false);
     };
 
     fetchListings();
   }, []);
+
+  const renderListingList = () => {
+    if (isLoading) {
+      return (
+        <div className='flex justify-center'>
+          <Spinner size='sm' />
+        </div>
+      );
+    }
+
+    return <ListingList listings={listings} />;
+  };
 
   const handleFilters = (filters) => {
     // const { dates, guests, search } = filters;
@@ -49,7 +65,7 @@ const HomePage = () => {
         <ListingFilters onChange={handleFilters} />
         <Separator className='my-4' />
       </div>
-      <ListingList listings={listings} />
+      {renderListingList()}
     </div>
   );
 };
