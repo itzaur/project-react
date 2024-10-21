@@ -9,6 +9,11 @@ const HomePage = () => {
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    dates: undefined,
+    guests: 0,
+    search: '',
+  });
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -16,7 +21,7 @@ const HomePage = () => {
       setError(null);
 
       try {
-        const response = await api.get('/api/listings');
+        const response = await api.get('/api/listings', { params: filters });
         setListings(response.data);
       } catch (error) {
         setError('Something went wrong. Please try again later.');
@@ -28,7 +33,7 @@ const HomePage = () => {
     };
 
     fetchListings();
-  }, []);
+  }, [filters]);
 
   const renderListingList = () => {
     if (isLoading) {
@@ -47,28 +52,7 @@ const HomePage = () => {
   };
 
   const handleFilters = (filters) => {
-    // const { dates, guests, search } = filters;
-    // // Resets filters by using static listings
-    // let filteredListings = staticListings;
-    // // Handles date range
-    // if (dates) {
-    //   filteredListings = filteredListings.filter((listing) =>
-    //     isListingAvailable(listing, dates),
-    //   );
-    // }
-    // // Handles guests
-    // if (guests) {
-    //   filteredListings = filteredListings.filter(
-    //     (listing) => guests <= listing.maxGuests,
-    //   );
-    // }
-    // // Handles search
-    // if (search) {
-    //   filteredListings = filteredListings.filter((listing) =>
-    //     listing.name.toLowerCase().includes(search.toLowerCase()),
-    //   );
-    // }
-    // setListings(filteredListings);
+    setFilters(filters);
   };
 
   return (
