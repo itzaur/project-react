@@ -8,13 +8,21 @@ import { Separator, Spinner } from '@/components/ui';
 const HomePage = () => {
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchListings = async () => {
       setIsLoading(true);
+      setError(null);
 
-      const response = await api.get('/api/listings');
-      setListings(response.data);
+      try {
+        const response = await api.get('/api/listings');
+        setListings(response.data);
+      } catch (error) {
+        setError('Something went wrong. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
 
       setIsLoading(false);
     };
@@ -29,6 +37,10 @@ const HomePage = () => {
           <Spinner size='sm' />
         </div>
       );
+    }
+
+    if (error) {
+      return <div className='text-center'>{error}</div>;
     }
 
     return <ListingList listings={listings} />;
