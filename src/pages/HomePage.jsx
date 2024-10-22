@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
 
 import api from '@/api';
 import ListingFilters from '@/components/ListingFilters.jsx';
@@ -15,15 +16,25 @@ const HomePage = () => {
     search: '',
   });
 
+  const abortController = useRef(null);
+
   useEffect(() => {
     const fetchListings = async () => {
       setIsLoading(true);
       setError(null);
 
+      abortController.current = new AbortController();
+
       try {
-        const response = await api.get('/api/listings', { params: filters });
+        const response = await api.get('/api/listings', {
+          params: filters,
+          signal: abortController.current?.signal,
+        });
         setListings(response.data);
       } catch (error) {
+        if (axios.isCancel(error)) {
+          return;
+        }
         setError('Something went wrong. Please try again later.');
       } finally {
         setIsLoading(false);
@@ -33,6 +44,10 @@ const HomePage = () => {
     };
 
     fetchListings();
+
+    return () => {
+      abortController.current?.abort();
+    };
   }, [filters]);
 
   const renderListingList = () => {
