@@ -2,9 +2,12 @@ import { DollarSign, Pin, Users } from 'lucide-react';
 
 import { Card, Separator } from '@/components/ui';
 
+import ListingDetailsCardImages from './ListingDetailsCardImages';
+
 const ListingDetailsCard = ({ listing }) => {
   return (
     <Card className='mx-auto p-4'>
+      <ListingDetailsCardImages listing={listing} />
       <div className='flex flex-col gap-2'>
         <h1 className='mb-2 text-2xl font-bold'>{listing.name}</h1>
         <div className='flex items-center gap-2'>
