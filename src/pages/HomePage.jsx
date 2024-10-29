@@ -1,54 +1,28 @@
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import api from '@/api';
-import ListingFilters from '@/components/ListingFilters.jsx';
-import ListingList from '@/components/ListingList.jsx';
+import ListingFilters from '@/components/ListingFilters';
+import ListingList from '@/components/ListingList';
 import { Separator, Spinner } from '@/components/ui';
+import useFetch from '@/hooks/useFetch';
 
 const HomePage = () => {
-  const [listings, setListings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
     dates: undefined,
     guests: 0,
     search: '',
   });
 
-  const abortController = useRef(null);
+  const fetchOptions = useMemo(() => ({ params: filters }), [filters]);
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      setIsLoading(true);
-      setError(null);
+  const {
+    data: listings,
+    error,
+    isLoading,
+  } = useFetch('/api/listings', fetchOptions);
 
-      abortController.current = new AbortController();
-
-      try {
-        const response = await api.get('/api/listings', {
-          params: filters,
-          signal: abortController.current?.signal,
-        });
-        setListings(response.data);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          return;
-        }
-        setError('Something went wrong. Please try again later.');
-      } finally {
-        setIsLoading(false);
-      }
-
-      setIsLoading(false);
-    };
-
-    fetchListings();
-
-    return () => {
-      abortController.current?.abort();
-    };
-  }, [filters]);
+  const handleFilters = (filters) => {
+    setFilters(filters);
+  };
 
   const renderListingList = () => {
     if (isLoading) {
@@ -64,10 +38,6 @@ const HomePage = () => {
     }
 
     return <ListingList listings={listings} />;
-  };
-
-  const handleFilters = (filters) => {
-    setFilters(filters);
   };
 
   return (
