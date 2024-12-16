@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { seedLocalDatabase } from '@/api/data/seed';
+import { seedLocalDatabase } from '@/api/data/seed.js';
 import ThemeProvider from '@/components/ThemeProvider.jsx';
 import { store } from '@/state/store.js';
 

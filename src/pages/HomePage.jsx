@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import DataRenderer from '@/components/DataRenderer';
-import ListingFilters from '@/components/ListingFilters';
-import ListingList from '@/components/ListingList';
+import DataRenderer from '@/components/DataRenderer.jsx';
+import ListingFilters from '@/components/ListingFilters.jsx';
+import ListingList from '@/components/ListingList.jsx';
 import { Separator } from '@/components/ui';
-import { fetchListings } from '@/state/listings/listingsSlice';
+import { fetchListings } from '@/state/listings/listingsSlice.js';
 
 const HomePage = () => {
   const { listings, error, status } = useSelector((state) => state.listings);
