@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
-import DataRenderer from '@/components/DataRenderer';
-import ListingDetailsCard from '@/components/ListingDetailsCard';
+import DataRenderer from '@/components/DataRenderer.jsx';
+import ListingDetailsCard from '@/components/ListingDetailsCard.jsx';
 import useFetch from '@/hooks/useFetch';
 
 const ListingDetailsPage = () => {

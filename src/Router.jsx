@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import HomePage from '@/pages/HomePage';
-import ListingDetailsPage from '@/pages/ListingDetailsPage';
+import HomePage from '@/pages/HomePage.jsx';
+import ListingDetailsPage from '@/pages/ListingDetailsPage.jsx';
+import ListingFavoritesPage from '@/pages/ListingFavoritesPage.jsx';
+import NotFoundPage from '@/pages/NotFoundPage.jsx';
 
-import App from './App';
-import NotFoundPage from './pages/NotFoundPage';
+import App from './App.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: '/listings/:listingId',
         element: <ListingDetailsPage />,
+      },
+      {
+        path: '/favorites',
+        element: <ListingFavoritesPage />,
       },
     ],
   },
