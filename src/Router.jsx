@@ -4,6 +4,7 @@ import HomePage from '@/pages/HomePage.jsx';
 import ListingDetailsPage from '@/pages/ListingDetailsPage.jsx';
 import ListingFavoritesPage from '@/pages/ListingFavoritesPage.jsx';
 import NotFoundPage from '@/pages/NotFoundPage.jsx';
+import SignInPage from '@/pages/SignInPage.jsx';
 
 import App from './App.jsx';
 
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFoundPage />,
     children: [
+      {
+        path: '/signin',
+        element: <SignInPage />,
+      },
       {
         path: '/',
         element: <HomePage />,
