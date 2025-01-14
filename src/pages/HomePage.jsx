@@ -44,7 +44,7 @@ const HomePage = () => {
         <Separator className='my-4' />
       </div>
       <DataRenderer error={error} isLoading={status === 'loading'}>
-        <ListingList listings={listings} />;
+        <ListingList listings={listings} />
       </DataRenderer>
     </div>
   );
