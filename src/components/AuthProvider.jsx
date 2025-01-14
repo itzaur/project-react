@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
         ) {
           try {
             const response = await api.get('/api/refreshToken');
+
             setToken(response.data.accessToken);
 
             originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;

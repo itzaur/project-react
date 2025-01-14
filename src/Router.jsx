@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: (
-          <Route>
+          <Route isProtected>
             <HomePage />
           </Route>
         ),
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: '/listings/:listingId',
         element: (
-          <Route>
+          <Route isProtected>
             <ListingDetailsPage />
           </Route>
         ),
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: '/favorites',
         element: (
-          <Route>
+          <Route isProtected>
             <ListingFavoritesPage />
           </Route>
         ),

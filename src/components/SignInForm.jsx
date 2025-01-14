@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import * as z from 'zod';
 
 import api from '@/api';
 import { useAuth } from '@/components/AuthProvider';
@@ -26,14 +26,18 @@ const SignInForm = () => {
     handleSubmit,
     register,
     setError,
-  } = useForm({ resolver: zodResolver(signInFormSchema) });
+  } = useForm({
+    resolver: zodResolver(signInFormSchema),
+  });
 
   const onSubmit = async (data) => {
     try {
-      const response = await api('/api/signin', data);
+      const response = await api.post('/api/signin', data);
       setToken(response.data.accessToken);
-    } catch (error) {
-      setError('root', { message: error.response.data.message });
+    } catch (e) {
+      setError('root', {
+        message: e.response.data.message,
+      });
     }
   };
 
